@@ -24,12 +24,7 @@ router.post(
   createTodo
 );
 
-router.get(
-  "/",
-  middleware,
-  [query("date").notEmpty().withMessage(message.DUEDATE_IS_REQUIRED)],
-  list
-);
+router.get("/", middleware, list);
 
 router.put(
   "/:todoId",

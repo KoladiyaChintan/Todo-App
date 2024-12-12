@@ -36,17 +36,21 @@ const list = async (req: any, res: Response): Promise<any> => {
     const { date } = queryParams;
     const userId = req.userId;
 
-    const startDate = new Date(date);
-    const endDate = new Date(startDate);
-    endDate.setDate(startDate.getDate() + 1);
-
-    const todos = await Todo.find({
+    const query: any = {
       userId: userId,
-      dueDate: { $gte: startDate, $lt: endDate },
-    });
+    };
+
+    if (date) {
+      const startDate = new Date(date);
+      const endDate = new Date(startDate);
+      endDate.setDate(startDate.getDate() + 1);
+
+      query.dueDate = { $gte: startDate, $lt: endDate };
+    }
+    const todos = await Todo.find(query);
 
     if (todos.length === 0) {
-      return res.status(404).json({ message: "No todos found for this date" });
+      return res.status(404).json({ message: "No todos found" });
     }
 
     res.status(200).json({ todos });
