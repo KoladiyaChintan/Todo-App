@@ -16,7 +16,6 @@ cron.schedule("* * * * *", async () => {
     console.log("todos", todos);
     for (const todo of todos) {
       if (todo.userId) {
-        console.log("222222222222");
         const userEmail = todo.userId.email;
         const subject = `Reminder: ${todo.title}`;
         const text = `This is a reminder for your Todo task: ${todo.title}.\nDue date: ${todo.dueDate}\nDescription: ${todo.description}`;

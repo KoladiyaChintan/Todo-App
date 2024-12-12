@@ -1,17 +1,21 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoutes from "./routes/authRoutes";
 import todoRoutes from "./routes/todoRoutes";
-import './utils/emailReminderScheduler'
+import "./utils/emailReminderScheduler";
 
 dotenv.config();
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Todo app working");
+});
 
 app.use("/auth", authRoutes);
 app.use("/todos", todoRoutes);
